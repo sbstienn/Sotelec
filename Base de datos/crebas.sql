@@ -132,24 +132,24 @@ ID_USUARIO ASC
 alter table DETALLETICKET
    add constraint FK_DETALLET_CONTIENE_TICKET foreign key (ID_TICKET)
       references TICKET (ID_TICKET)
-      on update restrict
-      on delete restrict;
+      on update no action
+      on delete no action;
 
 alter table ESTADOTICKET
    add constraint FK_ESTADOTI_POSEE_TICKET foreign key (ID_TICKET)
       references TICKET (ID_TICKET)
-      on update restrict
-      on delete restrict;
+      on update no action
+      on delete no action;
 
 alter table TICKET
    add constraint FK_TICKET_ATIENDE_TECNICO foreign key (ID_TECNICO)
       references TECNICO (ID_TECNICO)
-      on update restrict
-      on delete restrict;
+      on update no action
+      on delete no action;
 
 alter table TICKET
    add constraint FK_TICKET_CREA_USUARIO foreign key (ID_USUARIO)
       references USUARIO (ID_USUARIO)
-      on update cascade
-      on delete cascade;
+      on update no action
+      on delete no action;
 

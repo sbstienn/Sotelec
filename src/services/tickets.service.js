@@ -2,13 +2,19 @@ import config from '../config/config.js'
 import knex from 'knex'
 
 export default class TicketService {
-    constructor(){
+    constructor() {
         this.knex = knex(config)
     }
-    
+
     async getAllTickets() {
-        const tickets = await this.knex.from('ticket').select('*');
-        return Object.values(JSON.parse(JSON.stringify(tickets)));
+        /*const tickets = await this.knex.from('ticket').select('*');
+        return Object.values(JSON.parse(JSON.stringify(tickets)));*/
+        const tickets = await this.knex('ticket')
+            .join('tecnico', 'ticket.ID_TECNICO', '=', 'tecnico.ID_TECNICO')
+            .join('usuario', 'ticket.ID_USUARIO', '=', 'usuario.ID_USUARIO')
+            .select('ticket.*', 'tecnico.NOMBRETECNICO', 'usuario.NOMBREUSUARIO')
+            return Object.values(JSON.parse(JSON.stringify(tickets)))
+
     }
 
     async storeTicket(ticket) {
@@ -18,19 +24,19 @@ export default class TicketService {
 
     async editTicket(id, updatedTicket) {
         return this.knex('ticket')
-        .where({ID_ticket: id})
-        .update(updatedTicket);
+            .where({ ID_ticket: id })
+            .update(updatedTicket);
     }
 
     async searchTicket(id) {
         return this.knex('ticket')
-        .select('*')
-        .where({ID_ticket: id});
+            .select('*')
+            .where({ ID_ticket: id });
     }
 
     async deleteTicket(id) {
         return this.knex('ticket')
-        .where({ID_ticket: id})
-        .del();
+            .where({ ID_ticket: id })
+            .del();
     }
 }

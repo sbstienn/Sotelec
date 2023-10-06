@@ -28,4 +28,10 @@ export default class UsuarioService{
         .select('*')
         .where({ID_Usuario:id})
     }
+    async searchUsuarioEmail(email){
+        const user = await this.knex('usuario')
+        .select('ID_USUARIO','CORREOUSUARIO')
+        .where({CORREOUSUARIO:email})
+        return Object.values(JSON.parse(JSON.stringify(user)))
+    }
 }

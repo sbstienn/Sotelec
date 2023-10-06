@@ -2,7 +2,11 @@ import { Router } from 'express';
 const router = Router();
 
 import TicketService from '../services/tickets.service.js';
+import UsuarioService from '../services/users.service.js';
+import EstadoTicketService from '../services/estadoticket.service.js'
 const ticketservice = new TicketService();
+const userservice = new UsuarioService();
+const estadoticketservice = new EstadoTicketService();
 const folder = 'tickets'
 
 router.get('/create',async (req,res)=>{
@@ -25,12 +29,28 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { ASUNTO, DESCRIPCION, FECHATICKET, ID_TECNICO, ID_TICKET, ID_USUARIO } = req.body;
-        if (!ASUNTO || !DESCRIPCION || !FECHATICKET || !ID_TECNICO || !ID_TICKET || !ID_USUARIO) {
+        const { ASUNTO, CORREOUSUARIO, DESCRIPCION } = req.body;
+        if (!ASUNTO || !CORREOUSUARIO || !DESCRIPCION) {
             return res.status(400).json({ success: false, data: 'Todos los campos son requeridos.' });
         }
-        const newTicket = await ticketService.storeTicket(req.body);
-        res.status(201).json({ success: true, data: 'Registro realizado con éxito' });
+        const newUser = await userservice.searchUsuarioEmail(CORREOUSUARIO);
+        console.log(newUser)
+        const ticketbody = req.body
+        const fecha = new Date()
+        const ticket = {
+            ID_TECNICO:1,
+            ID_USUARIO:newUser[0].ID_USUARIO,
+            ASUNTO:ASUNTO,
+            DESCRIPCION:DESCRIPCION,
+            FECHATICKET:fecha
+        }
+        const newTicket = await ticketservice.storeTicket(ticket);
+        const estadoticket = {
+            ID_TICKET:newTicket[0],
+            ESTADO:"Pendiente"
+        }
+        const estadot = await estadoticketservice.storeEstado(estadoticket)
+        res.status(200).json({ success: true, data:estadot});
     } catch (error) {
         res.status(500).json({ success: false, data: error.message });
     }

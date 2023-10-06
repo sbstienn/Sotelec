@@ -17,17 +17,6 @@ import config from './src/config/config.js'
 
 const app = express()
 
-app.use(express.static(`${__dirname}/public`))
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static(`${__dirname}/public`))
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-app.use('/api/usuarios',usuariosRouter)
-app.use('/api/ticket',ticketRouter)
-app.use(express.urlencoded({ extended: true }))
-
-
 app.use(session({
     config,
     secret: 'sotelec123',
@@ -35,16 +24,16 @@ app.use(session({
     saveUninitialized: true
 }))
 
+app.use(express.static(`${__dirname}/public`))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use('/api/ticket',ticketRouter)
+app.use('/api/estadoticket',estadoticketRouter)
 app.use('/api/usuarios', usuariosRouter)
-
 app.use('/api/tecnicos', tecnicosRouter)
-
 app.use('/', loginRouter)
-
-app.use('/api/ticket', ticketRouter)
 
 app.engine('handlebars', handlebars.engine())
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'handlebars')
-app.use('/api/estadoticket', estadoticketRouter)
 app.listen(8085, () => { console.log('Listen on port 8085') })
