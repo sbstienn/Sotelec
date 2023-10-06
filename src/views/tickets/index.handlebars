@@ -1,5 +1,5 @@
 <div class="row">
-  {{#each tickets}}
+  {{#each obj}}
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body">
@@ -11,6 +11,15 @@
         <a href="#" class="btn btn-primary">Resolver Ticket</a>
       </div>
     </div>
+     {{#each this}}
+    <select class="form-select" aria-label="Default select example">
+      <option selected> {{this.NOMBRETECNICO}}</option>
+      
+      
+    </select>
+    {{/each}}
+    
   </div>
   {{/each}}
+ 
 </div>
