@@ -6,13 +6,20 @@ const router = Router()
 const folder = 'tecnicos'
 
 import TecnicosService from '../services/tecnicos.services.js'
+import TicketService from '../services/tickets.service.js'
 const Tecnicos = new TecnicosService()
+const Tickets = new TicketService()
 
 //ok//
 router.get('/',async(req,res) => {
     try{
         const tecnicos = await Tecnicos.getTecnicos()
-        res.status(200).json(tecnicos)
+        const tickets = await Tickets.getAllTickets()
+        const obj = {
+            tecnicos,
+            tickets
+        }
+        return res.status(200).json(obj)
     } catch(error) {
 
         console.log(error)

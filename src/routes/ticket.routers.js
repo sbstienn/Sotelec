@@ -17,24 +17,11 @@ router.get('/create',async (req,res)=>{
 
 router.get('/', async (req, res) => {
     try {
-        const tickets = await ticketservice.getAllTickets()
-        const tecnicos = await tecnicoservice.getTecnicos()
-        const obj = [
-            tickets,
-            tecnicos
-        ]
-        console.log(obj)
-
-        if (tickets && tickets.length > 0) {
-            res.render(`${folder}/index`,{obj})
-
-        } else {
-            res.status(404).json({ success: false, data: 'No se encontraron registros.' })
-        }
+        return res.render(`${folder}/index`)
     } catch (error) {
         res.status(500).json({ success: false, data: error.message })
     }
-});
+})
 
 router.post('/', async (req, res) => {
     try {

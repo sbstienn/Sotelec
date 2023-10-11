@@ -1,25 +1,4 @@
-<div class="row">
-  {{#each obj}}
-  <div class="col-sm-3">
-    <div class="card">
-      <div class="card-body">
-        <p class="card-text">USUARIO: {{this.NOMBREUSUARIO}}</p>
-        <p class="card-text">TECNICO: {{this.NOMBRETECNICO}}</p>
-        <h5 class="card-title">{{this.ASUNTO}}</h5>
-        <p class="card-text">{{this.DESCRIPCION}}</p>
-        <p class="card-text">{{this.FECHATICKET}}</p>
-        <a href="#" class="btn btn-primary">Resolver Ticket</a>
-      </div>
-    </div>
-     {{#each this}}
-    <select class="form-select" aria-label="Default select example">
-      <option selected> {{this.NOMBRETECNICO}}</option>
-      
-      
-    </select>
-    {{/each}}
-    
-  </div>
-  {{/each}}
- 
+<div class="row selectTecnicos">
 </div>
+</div>
+<script src="/js/ticket/dataTickets.js"></script>

@@ -17,6 +17,11 @@ export default class TicketService {
 
     }
 
+    async getTickets(){
+        const tickets = await this.knex.from('ticket').select('*')
+        return Object.values(JSON.parse(JSON.stringify(tickets)))
+    }
+
     async storeTicket(ticket) {
         return this.knex('ticket').insert(ticket);
     }
