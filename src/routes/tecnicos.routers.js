@@ -29,8 +29,10 @@ router.get('/',async(req,res) => {
 router.post('/login',async(req,res)=> {
     try{
         const {CORREOTECNICO,PASSWORD} = req.body
+        if(!CORREOTECNICO || !PASSWORD)
+            return res.status(400).json({success:false,message:'Debe ingresar correo y contraseña'})
         const tecnico = await Tecnicos.getTecnicoByEmail(CORREOTECNICO)
-        if((tecnico && isValidPassword(tecnico[0],PASSWORD))){
+        if((tecnico.length > 0 && isValidPassword(tecnico[0],PASSWORD))){
             req.session.tecnico= {
                 NOMBRETECNICO:tecnico[0].NOMBRETECNICO,
                 ID_TECNICO:tecnico[0].ID_TECNICO,
@@ -39,11 +41,8 @@ router.post('/login',async(req,res)=> {
             }
             return res.cookie('kookieSession',{maxAge:60*60*1000,httpOnly:true}).send({success:true})
         }else{
-            console.log("ERROR")
             return res.status(200).json({success:false,message:'Error Al Inicar Sesion'})
         }
-      
-        
     }catch (error){
         console.log(error)
     }

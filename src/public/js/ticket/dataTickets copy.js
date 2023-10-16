@@ -1,18 +1,8 @@
 const ticketContainer = document.querySelector('#dataTicket')
 ticketContainer.innerHTML = ''
-const listTecnicos = (tecnicos) => {
-	let tec ='<option value="0" selected>Seleccione...</option>'
-	tecnicos.forEach((t)=>{
-		tec += `<option value="${t.ID_TECNICO}">${t.NOMBRETECNICO}</option>`
-	})
-	return tec
+const listTecnicos = () => {
+	
 }
-const setTicketTecnico = (e) => {
-	const idSelect = e.target.getAttribute('id')
-	const data = document.querySelector(`#${idSelect}`).value
-	console.log(data)
-}
-
 const llamandoAPI = async () => {
 	const options = {
 		method: 'GET',
@@ -23,9 +13,12 @@ const llamandoAPI = async () => {
 	}
 	const respuesta = await fetch(`/api/tecnicos`,options)
 	const data = await respuesta.json()
-	const {tecnicos,tickets} = data
-	const tec = listTecnicos(tecnicos)
-	
+
+	let tec ='<option value="0" selected>Seleccione...</option>'
+	data.tecnicos.forEach((t)=>{
+		tec += `<option value="${t.ID_TECNICO}">${t.NOMBRETECNICO}</option>`
+	})
+
 	let i = 1
 
 	data.tickets.forEach((t)=>{
@@ -55,12 +48,14 @@ const llamandoAPI = async () => {
 				<p class="card-text m-1">${t.FECHATICKET}</p>
 			</div>
 			<select class="form-select selectTicketTecnico" id="listTec${i}" aria-label="Default select example">
-				${tec}
+			${tec}
 			</select>
 			</div>`
 			ticketContainer.append(col_sm_3)
 		}
+		
 	  	i += 1
+
 	})
 	const selectTicketTecnico = document.querySelectorAll('.selectTicketTecnico')
 	selectTicketTecnico.forEach((s)=>{
@@ -69,4 +64,8 @@ const llamandoAPI = async () => {
 	//<button type="button" class="btn btn-primary btnTicketTecnico m-1">Primary</button>
 }
 llamandoAPI()
-
+const setTicketTecnico = (e) => {
+	const idSelect = e.target.getAttribute('id')
+	const data = document.querySelector(`#${idSelect}`).value
+	console.log(data)
+}

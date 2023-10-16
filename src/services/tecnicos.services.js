@@ -6,7 +6,7 @@ export default class TecnicosService{
     }
 
     async getTecnicos(){
-        const Tecnicos = await this.knex.from('tecnico').select('*')
+        const Tecnicos = await this.knex.from('tecnico').select('ID_TECNICO','NOMBRETECNICO')
         return Object.values(JSON.parse(JSON.stringify(Tecnicos)))
     }
     addTecnicos = async(obj) => {

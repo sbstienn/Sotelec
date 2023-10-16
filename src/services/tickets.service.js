@@ -7,13 +7,14 @@ export default class TicketService {
     }
 
     async getAllTickets() {
-        /*const tickets = await this.knex.from('ticket').select('*');
-        return Object.values(JSON.parse(JSON.stringify(tickets)));*/
-        const tickets = await this.knex('ticket')
+        const tickets = await this.knex.from('ticket').select('ID_TECNICO','ASUNTO','DESCRIPCION','FECHATICKET')
+        return Object.values(JSON.parse(JSON.stringify(tickets)))
+        
+        /*const tickets = await this.knex('ticket')
             .join('tecnico', 'ticket.ID_TECNICO', '=', 'tecnico.ID_TECNICO')
             .join('usuario', 'ticket.ID_USUARIO', '=', 'usuario.ID_USUARIO')
             .select('ticket.*', 'tecnico.NOMBRETECNICO', 'usuario.NOMBREUSUARIO')
-            return Object.values(JSON.parse(JSON.stringify(tickets)))
+            return Object.values(JSON.parse(JSON.stringify(tickets)))*/
 
     }
 
