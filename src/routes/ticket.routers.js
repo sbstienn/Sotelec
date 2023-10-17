@@ -23,6 +23,16 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.post('/update', async (req, res) => {
+    try {
+        const data = req.body
+        //Actualizar TicKet A TRAVES deL SERVICIO
+        console.log(data)
+    } catch (error) {
+        res.status(500).json({ success: false, data: error.message })
+    }
+})
+
 router.post('/', async (req, res) => {
     try {
         const { ASUNTO, CORREOUSUARIO, DESCRIPCION } = req.body;
@@ -56,7 +66,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        const updatedTicket = await ticket.updateTicket(req.params.id, req.body)
+        const updatedTicket = await ticket.editTicket(req.params.id, req.body)
         if (updatedTicket) {
             res.status(200).json(updatedTicket)
         } else {
