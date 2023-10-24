@@ -39,9 +39,9 @@ router.post('/login',async(req,res)=> {
                 CORREOTECNICO:tecnico[0].CORREOTECNICO,
                 PERFIL:tecnico[0].PERFIL
             }
-            return res.cookie('kookieSession',{maxAge:60*60*1000,httpOnly:true}).send({success:true})
+            return res.cookie('kookieSession',{maxAge:60*60*1000,httpOnly:true}).send({success:true,tecnico})
         }else{
-            return res.status(200).json({success:false,message:'Error Al Inicar Sesion'})
+            return res.status(400).json({success:false,message:'Error Al Inicar Sesion'})
         }
     }catch (error){
         console.log(error)
@@ -101,6 +101,15 @@ router.put('/:id',async(req,res) => {
         console.log('error ' + err)
     }
 })
+router.get('/ticket/:id',async(req,res) => {
+    try{
+        const id = req.params.id
+        const data = await Tecnicos.getTicketTecnicos(id)
+        return res.render(`${folder}/ticketstenico`)
+    } catch(error) {
 
+        console.log(error)
+    }
+})
 
 export default router

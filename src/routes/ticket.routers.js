@@ -17,7 +17,7 @@ router.get('/create',async (req,res)=>{
 
 router.get('/', async (req, res) => {
     try {
-        return res.render(`${folder}/index`)
+        return res.render(`${folder}/index`,{sessionUSER:req.session.tecnico})
     } catch (error) {
         res.status(500).json({ success: false, data: error.message })
     }
