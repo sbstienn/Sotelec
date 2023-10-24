@@ -7,7 +7,7 @@ export default class TicketService {
     }
 
     async getAllTickets() {
-        const tickets = await this.knex.from('ticket').select('ID_TECNICO','ASUNTO','DESCRIPCION','FECHATICKET')
+        const tickets = await this.knex.from('ticket').select('ID_TICKET','ID_TECNICO','ASUNTO','DESCRIPCION','FECHATICKET')
         return Object.values(JSON.parse(JSON.stringify(tickets)))
         
         /*const tickets = await this.knex('ticket')

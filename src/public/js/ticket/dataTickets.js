@@ -7,10 +7,42 @@ const listTecnicos = (tecnicos) => {
 	})
 	return tec
 }
+const asignarTicket = async(ticket) => {
+	const options = {
+		method: 'POST',
+		headers: {
+			'Content-Type':'application/json'
+		},
+		body:JSON.stringify(ticket),
+		cache: 'no-cache'
+	}
+	const respuesta = await fetch(`/api/ticket/update`,options)
+	const data = await respuesta.json()
+}
 const setTicketTecnico = (e) => {
-	const idSelect = e.target.getAttribute('id')
-	const data = document.querySelector(`#${idSelect}`).value
-	console.log(data)
+    const id = e.target.form.id
+	document.querySelector(`#${id}`).addEventListener('submit',e=>{
+		e.preventDefault()
+		const data = Object.fromEntries(
+			new FormData(e.target)
+		)
+		asignarTicket(data)
+	})
+}
+
+
+const putTickets = async (id) => {
+	const options = {
+		method: 'GET',
+		headers: {
+			'Content-Type':'application/json'
+		},
+		cache: 'no-cache'
+	}
+	const respuesta = await fetch(`/api/tecnicos`,options)
+	const data = await respuesta.json()
+	const {tecnicos,tickets} = data
+	const tec = listTecnicos(tecnicos)
 }
 
 const llamandoAPI = async () => {
@@ -39,9 +71,13 @@ const llamandoAPI = async () => {
 				<p class="card-text m-1">${t.DESCRIPCION}</p>
 				<p class="card-text m-1">${t.FECHATICKET}</p>
 			</div>
-			<select class="form-select selectTicketTecnico" id="listTec${i}" aria-label="Default select example">
-			${tec}
-			</select>
+			<form id="form${i}">
+				<select class="form-select selectTicketTecnico" name="id_tecnico" aria-label="Default select example">
+					${tec}
+				</select>
+				<input type="hidden" name="id_ticket" value="${t.ID_TICKET}">
+				<button type="submit" class="btn btn-primary m-1">Primary</button>
+			</form>
 			</div>`
 			ticketContainer.append(col_sm_3)
 		}else{
@@ -50,13 +86,17 @@ const llamandoAPI = async () => {
 			col_sm_3.innerHTML = `
 			<div class="card">
 			<div class="card-body p-1">
-				<h5 class="card-title m-1" style="background-color:green">${t.ASUNTO}</h5>
+				<h5 class="card-title m-1" style="background-color:green;" title="Este ticket no está asignado">${t.ASUNTO}</h5>
 				<p class="card-text m-1">${t.DESCRIPCION}</p>
 				<p class="card-text m-1">${t.FECHATICKET}</p>
 			</div>
-			<select class="form-select selectTicketTecnico" id="listTec${i}" aria-label="Default select example">
-				${tec}
-			</select>
+			<form id="form${i}">
+				<select class="form-select selectTicketTecnico" name="id_tecnico" aria-label="Default select example">
+					${tec}
+				</select>
+				<input type="hidden" name="id_ticket" value="${t.ID_TICKET}">
+				<button type="submit" class="btn btn-primary m-1">Primary</button>
+			</form>
 			</div>`
 			ticketContainer.append(col_sm_3)
 		}
