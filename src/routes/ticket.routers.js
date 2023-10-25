@@ -92,4 +92,7 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.get('/detalle/:id',async (req,res)=>{
+    res.render(`${folder}/detalleticket`)
+})
 export default router

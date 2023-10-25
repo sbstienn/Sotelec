@@ -1,0 +1,28 @@
+
+<h2 id="createTicketMessage"></h2>
+<form id="createTicket">
+    
+    <!-- Categoría del Ticket -->
+    <div class="mb-3">
+        <label for="category" class="form-label">Seleccionar Estado Del TIcket</label>
+        <select class="form-select" id="category" name="ESTADO">
+            <option value="" disabled selected>Elige una opción</option>
+            <option value="FINALIZADO"> FINALIZADO</option>
+            <option value="ENPROCESO"> EN PROCESO</option>
+            <option value="PENDIENTE"> PENDIENTE</option>
+
+        </select>
+    </div>
+
+    <!-- Descripción del Ticket -->
+    <div class="mb-3">
+        <label for="description" class="form-label">Detalle Del Ticket</label>
+        <textarea class="form-control" name="DETALLE" rows="3" placeholder="Escribe El Detalle Del Ticket" required></textarea>
+    </div>
+
+     <!-- Botón para Enviar el Ticket -->
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Enviar ticket</button>
+    </div>
+</form>
+<script src="/js/ticket/create.js"></script>

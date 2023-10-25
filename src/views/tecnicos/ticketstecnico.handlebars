@@ -1,0 +1,14 @@
+<div class="row">
+     {{#each data}}
+  <div class="col-sm-3 mb-3 mb-sm-0">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{this.ASUNTO}}</h5>
+        <p class="card-text">{{this.DESCRIPCION}}</p>
+        <p class="card-text">{{this.FECHATICKET}}</p>
+        <a href="/api/ticket/detalle/{{this.ID_TICKET}}" class="btn btn-primary">Ver Ticket</a>
+      </div>
+    </div>
+  </div>
+    {{/each}}
+</div>

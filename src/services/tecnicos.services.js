@@ -39,7 +39,7 @@ export default class TecnicosService{
         const tickets = await this.knex('ticket')
             .join('tecnico', 'ticket.ID_TECNICO', '=', 'tecnico.ID_TECNICO')
             .where('tecnico.ID_TECNICO', '=', id)
-            .select('ticket.ASUNTO', 'tecnico.ID_TECNICO')
+            .select('ticket.ASUNTO','ticket.DESCRIPCION','ticket.FECHATICKET','ticket.ID_TICKET', 'tecnico.ID_TECNICO')
             return Object.values(JSON.parse(JSON.stringify(tickets)))
     }
 }

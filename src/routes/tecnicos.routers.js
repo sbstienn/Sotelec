@@ -105,7 +105,7 @@ router.get('/ticket/:id',async(req,res) => {
     try{
         const id = req.params.id
         const data = await Tecnicos.getTicketTecnicos(id)
-        return res.render(`${folder}/ticketstenico`)
+        return res.render(`${folder}/ticketstecnico`,{data})
     } catch(error) {
 
         console.log(error)
