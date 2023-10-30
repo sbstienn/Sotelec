@@ -18,6 +18,9 @@ const asignarTicket = async(ticket) => {
 	}
 	const respuesta = await fetch(`/api/ticket/update`,options)
 	const data = await respuesta.json()
+	if(data.success){
+		window.location.replace('/api/ticket')
+	}
 }
 const setTicketTecnico = (e) => {
     const id = e.target.form.id

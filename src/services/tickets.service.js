@@ -45,4 +45,12 @@ export default class TicketService {
             .where({ ID_ticket: id })
             .del();
     }
+
+    async asingTicket (id_tecnico,id_ticket) {
+        return this.knex('ticket')
+            .where({ ID_TICKET: id_ticket })
+            .update({ 
+                ID_TECNICO:  id_tecnico
+        })
+    }
 }

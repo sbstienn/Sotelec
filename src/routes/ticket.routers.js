@@ -25,9 +25,11 @@ router.get('/', async (req, res) => {
 
 router.post('/update', async (req, res) => {
     try {
-        const data = req.body
+        const {id_tecnico,id_ticket} = req.body
         //Actualizar TicKet A TRAVES deL SERVICIO
-        console.log(data)
+        //console.log(id_tecnico+' '+id_ticket)
+        const respuesta = await ticketservice.asingTicket(id_tecnico,id_ticket)
+        res.status(200).json({ success: true, data: 'ticket asignado'})
     } catch (error) {
         res.status(500).json({ success: false, data: error.message })
     }
@@ -58,7 +60,7 @@ router.post('/', async (req, res) => {
             ESTADO:"Pendiente"
         }
         const estadot = await estadoticketservice.storeEstado(estadoticket)
-        res.status(200).json({ success: true, data:estadot})
+        res.send({ success: true, data:estadot,sessionUSER:req.session.tecnico})
     } catch (error) {
         res.status(500).json({ success: false, data: error.message })
     }

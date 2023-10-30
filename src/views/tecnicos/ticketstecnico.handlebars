@@ -1,3 +1,4 @@
+{{#if data}}
 <div class="row">
      {{#each data}}
   <div class="col-sm-3 mb-3 mb-sm-0">
@@ -12,3 +13,8 @@
   </div>
     {{/each}}
 </div>
+{{else}}
+<div class="alert alert-success" role="alert">
+ <h2> usted no tiene tickets asignados</h2>
+  </div>
+{{/if}}

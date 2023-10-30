@@ -18,8 +18,9 @@ const llamandoAPI = async (data) => {
 	}
 	const respuesta = await fetch(`/api/ticket`,options)
 	const data2 = await respuesta.json()
+	console.log(data2)
 	mje.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-	<strong>Holy guacamole!</strong> $_{}
+	<strong>${data2.data}</strong>
 	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>`
 }
