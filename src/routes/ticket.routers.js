@@ -5,10 +5,12 @@ import TicketService from '../services/tickets.service.js'
 import UsuarioService from '../services/users.service.js'
 import EstadoTicketService from '../services/estadoticket.service.js'
 import TecnicoService from '../services/tecnicos.services.js'
+import detalleticketService from '../services/detalleticket.js'
 const ticketservice = new TicketService()
 const userservice = new UsuarioService()
 const estadoticketservice = new EstadoTicketService()
 const tecnicoservice = new TecnicoService() 
+const detalleticketservice = new detalleticketService()
 const folder = 'tickets'
 
 router.get('/create',async (req,res)=>{
@@ -95,6 +97,29 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.get('/detalle/:id',async (req,res)=>{
-    res.render(`${folder}/detalleticket`)
+    const id = req.params.id
+    res.render(`${folder}/detalleticket`,{id})
 })
+
+router.post('/detalle',async (req,res)=>{
+   try {
+        const data = req.body
+        const estadoticket = {
+            ID_TICKET: data.id,
+            ESTADO: data.ESTADO
+        }
+        const detalleticket = {
+            ID_TICKET: data.id,
+            COMENTARIOS: data.DETALLE,
+            FECHADETALLETICKET: new Date().toISOString()
+        }
+       const respuesta = await estadoticketservice.storeEstado(estadoticket)
+       const respuesta2 = await detalleticketservice.storeDetalleTicket(detalleticket)
+       return res.send({ success: true,data:'Detalle del ticket ha sido',sessionUSER:req.session.tecnico})
+   } catch (error) {
+    
+   }
+    
+})
+
 export default router

@@ -68,7 +68,7 @@ const llamandoAPI = async () => {
 			let col_sm_3 = document.createElement('div')
 			col_sm_3.className = 'col-sm-3'
 			col_sm_3.innerHTML = `
-			<div class="card">
+			<div class="card ">
 			<div class="card-body p-1">
 				<h5 class="card-title m-1" style="background-color:red;" title="Este ticket no está asignado">${t.ASUNTO}</h5>
 				<p class="card-text m-1">${t.DESCRIPCION}</p>
@@ -79,7 +79,7 @@ const llamandoAPI = async () => {
 					${tec}
 				</select>
 				<input type="hidden" name="id_ticket" value="${t.ID_TICKET}">
-				<button type="submit" class="btn btn-primary m-1">Primary</button>
+				<button type="submit" class="btn btn-primary m-1">Asignar</button>
 			</form>
 			</div>`
 			ticketContainer.append(col_sm_3)
@@ -98,7 +98,7 @@ const llamandoAPI = async () => {
 					${tec}
 				</select>
 				<input type="hidden" name="id_ticket" value="${t.ID_TICKET}">
-				<button type="submit" class="btn btn-primary m-1">Primary</button>
+				<button type="submit" class="btn btn-primary m-1">Asignar</button>
 			</form>
 			</div>`
 			ticketContainer.append(col_sm_3)
