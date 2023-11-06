@@ -14,7 +14,8 @@ const detalleticketservice = new detalleticketService()
 const folder = 'tickets'
 
 router.get('/create',async (req,res)=>{
-    res.render(`${folder}/create`)
+    console.log(req.session.tecnico)
+    res.render(`${folder}/create`,{sessionUSER:req.session.tecnico})
 })
 
 router.get('/', async (req, res) => {

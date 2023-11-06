@@ -12,7 +12,9 @@
   <div class="container-fluid">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+{{#if sessionUSER.ID_TECNICO}}
+        <a class="navbar-brand" href="#">Bienvenido(a) {{sessionUSER.NOMBRETECNICO}}</a>
+{{/if}}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -53,7 +55,8 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="http://localhost:8085/api/ticket">ver tickets</a></li>
               </ul>
-            </li>          
+            </li>    
+             <a class="navbar-brand" href="/api/tecnicos/logout">Logout</a>      
           </ul>
 
         </div>

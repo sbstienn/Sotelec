@@ -26,6 +26,19 @@ router.get('/',async(req,res) => {
     }
 })
 
+router.get('/logout',async(req,res) =>{
+    try {
+        req.session.destroy(err =>{
+            if(err){
+                return res.status().send({success:false,message:'error'})
+            }
+            res.redirect('/')
+        })
+    } catch (error) {
+        
+    }
+})
+
 router.post('/login',async(req,res)=> {
     try{
         const {CORREOTECNICO,PASSWORD} = req.body
@@ -49,7 +62,7 @@ router.post('/login',async(req,res)=> {
 })
 
 router.get('/create',async (req,res)=>{
-    res.render(`${folder}/create`)
+    res.render(`${folder}/create`,{sessionUSER:req.session.tecnico})
 })
 
 //ok//
@@ -111,5 +124,7 @@ router.get('/ticket/:id',async(req,res) => {
         console.log(error)
     }
 })
+
+
 
 export default router
