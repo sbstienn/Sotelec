@@ -54,7 +54,7 @@ router.post('/login',async(req,res)=> {
             }
             return res.cookie('kookieSession',{maxAge:60*60*1000,httpOnly:true}).send({success:true,tecnico})
         }else{
-            return res.status(400).json({success:false,message:'Error Al Inicar Sesion'})
+            return res.status(400).json({success:false,message:'Error Al Iniciar Sesión'})
         }
     }catch (error){
         console.log(error)
