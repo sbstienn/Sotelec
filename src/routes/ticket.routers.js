@@ -45,10 +45,12 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ success: false, data: 'Todos los campos son requeridos.' })
         }
         const newUser = await userservice.searchUsuarioEmail(CORREOUSUARIO);
+       
         if (newUser.length == 0) {
             return res.status(400).json({ success: false, data: 'USUARIO NO SE ENCUENTRA REGISTRADO ' })
         }
         const ticketbody = req.body
+        
         const fecha = new Date()
         const ticket = {
             ID_TECNICO:1,
@@ -63,7 +65,7 @@ router.post('/', async (req, res) => {
             ESTADO:"Pendiente"
         }
         const estadot = await estadoticketservice.storeEstado(estadoticket)
-        res.send({ success: true, data:estadot,sessionUSER:req.session.tecnico})
+        res.send({ success: true, data:'TICKET INGRESADO CORRECTAMENTE',sessionUSER:req.session.tecnico})
     } catch (error) {
         res.status(500).json({ success: false, data: error.message })
     }
@@ -99,7 +101,7 @@ router.delete('/:id', async (req, res) => {
 
 router.get('/detalle/:id',async (req,res)=>{
     const id = req.params.id
-    res.render(`${folder}/detalleticket`,{id})
+    res.render(`${folder}/detalleticket`,{id,sessionUSER:req.session.tecnico})
 })
 
 router.post('/detalle',async (req,res)=>{
@@ -116,7 +118,7 @@ router.post('/detalle',async (req,res)=>{
         }
        const respuesta = await estadoticketservice.storeEstado(estadoticket)
        const respuesta2 = await detalleticketservice.storeDetalleTicket(detalleticket)
-       return res.send({ success: true,data:'Detalle del ticket ha sido',sessionUSER:req.session.tecnico})
+       return res.send({ success: true,data:'Detalle del ticket ha sido ingresado',sessionUSER:req.session.tecnico})
    } catch (error) {
     
    }

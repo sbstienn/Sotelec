@@ -107,8 +107,7 @@ router.put('/:id',async(req,res) => {
     try {
         const id = req.params.id
         const obj = req.body
-        const respuesta = await Tecnicos.updateTecnicos(id,obj)   
-        console.log(respuesta)  
+        const respuesta = await Tecnicos.updateTecnicos(id,obj)    
         return res.status(200).json(respuesta)
     } catch (err) {
         console.log('error ' + err)

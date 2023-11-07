@@ -1,5 +1,5 @@
-const mje = document.querySelector('#createTicketMessage')
-document.querySelector('#createTicket').addEventListener('submit', e => {
+const mje = document.querySelector('#detalleTicketMessage')
+document.querySelector('#detalleTicket').addEventListener('submit', e => {
 	e.preventDefault()
 	const data = Object.fromEntries(
 		new FormData(e.target)
@@ -16,9 +16,8 @@ const llamandoAPI = async (data) => {
 		body: JSON.stringify(data),
 		cache: 'no-cache'
 	}
-	const respuesta = await fetch(`/api/ticket`, options)
+	const respuesta = await fetch(`/api/ticket/detalle`, options)
 	const data2 = await respuesta.json()
-	console.log(data2)
 	if (data2.success == true) {
 		mje.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
 		<strong>${data2.data}</strong>
